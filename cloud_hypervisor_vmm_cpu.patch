@@ -1,0 +1,13 @@
+diff --git vmm/src/cpu.rs vmm/src/cpu.rs
+index edbeef56..1279c436 100644
+--- vmm/src/cpu.rs
++++ vmm/src/cpu.rs
+@@ -278,7 +278,7 @@ impl Vcpu {
+         interrupt_controller: Option<Arc<Mutex<dyn InterruptController>>>,
+         creation_ts: std::time::Instant,
+     ) -> Result<Arc<Mutex<Self>>> {
+-        let kvm_vcpu = fd.create_vcpu(id).map_err(Error::VcpuFd)?;
++        let kvm_vcpu = fd.create_vcpu(id as u64).map_err(Error::VcpuFd)?;
+         // Initially the cpuid per vCPU is the one supported by this VM.
+         Ok(Arc::new(Mutex::new(Vcpu {
+             fd: kvm_vcpu,
